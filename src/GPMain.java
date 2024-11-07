@@ -17,7 +17,8 @@ public class GPMain {
   Selector selector;
   Fitness fitnessFunction;
 
-  public GPMain(Generator generator, Crossover crossoverFunction, Selector selector, Fitness fitnessFunction) {
+  public GPMain(Generator generator, Crossover crossoverFunction, Selector selector,
+      Fitness fitnessFunction) {
     this.generator = generator;
     this.crossoverFunction = crossoverFunction;
     this.selector = selector;
@@ -31,14 +32,17 @@ public class GPMain {
     }
   }
 
-  public void runOneGeneration() {}
+  public void runOneGeneration() {
+  }
 
   public void doCrossover(Individual parent1, Individual parent2) {
-    Individual[] children  = crossoverFunction.doCrossover(parent1, parent2);
+    Individual[] children = crossoverFunction.doCrossover(parent1, parent2);
     Collections.addAll(population, children);
   }
 
-  public void display() {}
+  public void display() {
+  }
 
-  public void runOnData() {}
+  public void runOnData() {
+  }
 }

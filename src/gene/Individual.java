@@ -15,12 +15,12 @@ public abstract class Individual implements Comparable<Individual> {
     this.mutationRate = mutationRate;
   }
 
-  public void setMutationRate(double mutationRate) {
-    this.mutationRate = mutationRate;
-  }
-
   public double getMutationRate() {
     return this.mutationRate;
+  }
+
+  public void setMutationRate(double mutationRate) {
+    this.mutationRate = mutationRate;
   }
 
   public double calculateFitness(String desired) {

@@ -1,14 +1,13 @@
 package generator;
 
-import gene.Individual;
 import gene.encoding.BitStringEncoding;
 import gene.encoding.Encoding;
-import generator.Generator;
 
 import java.util.Random;
 
 public class BitStringGenerator implements Generator {
   Random rand = new Random();
+
   @Override
   public Encoding generate(int length) {
 

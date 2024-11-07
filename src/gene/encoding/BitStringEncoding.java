@@ -3,8 +3,8 @@ package gene.encoding;
 import java.util.Random;
 
 public class BitStringEncoding implements Encoding {
-  private String encoding;
   Random rand = new Random();
+  private String encoding;
 
   public BitStringEncoding(String encoding) {
     this.encoding = encoding;

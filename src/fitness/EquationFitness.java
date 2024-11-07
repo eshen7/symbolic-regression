@@ -1,6 +1,5 @@
 package fitness;
 
-import gene.Individual;
 import gene.encoding.Encoding;
 
 public class EquationFitness implements Fitness {
