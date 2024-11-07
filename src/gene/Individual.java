@@ -1,19 +1,17 @@
 package gene;
 
 import fitness.Fitness;
-import mutation.Mutation;
+import gene.encoding.Encoding;
 
 public abstract class Individual implements Comparable<Individual> {
-  protected String encoding;
+  protected Encoding encoding;
   protected Fitness fitnessFunction;
-  protected Mutation mutationFunction;
   protected double fitness;
   protected double mutationRate;
 
-  public Individual(String encoding, Fitness fitnessFunction, Mutation mutationFunction, double mutationRate) {
+  public Individual(Encoding encoding, Fitness fitnessFunction, double mutationRate) {
     this.encoding = encoding;
     this.fitnessFunction = fitnessFunction;
-    this.mutationFunction = mutationFunction;
     this.mutationRate = mutationRate;
   }
 
@@ -26,20 +24,16 @@ public abstract class Individual implements Comparable<Individual> {
   }
 
   public double calculateFitness(String desired) {
-    this.fitness = this.fitnessFunction.calculateFitness(this, desired);
+    this.fitness = this.fitnessFunction.calculateFitness(this.encoding, desired);
     return this.fitness;
   }
 
   public void mutate() {
-    this.mutationFunction.mutate(this);
+    this.encoding.mutate(this.mutationRate);
   }
 
-  public String getEncoding() {
+  public Encoding getEncoding() {
     return this.encoding;
-  }
-
-  public void setEncoding(String encoding) {
-    this.encoding = encoding;
   }
 
   public abstract Individual copy();

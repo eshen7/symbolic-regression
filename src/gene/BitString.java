@@ -1,15 +1,15 @@
 package gene;
 
 import fitness.Fitness;
-import mutation.Mutation;
+import gene.encoding.Encoding;
 
 public class BitString extends Individual {
-  public BitString(String encoding, Fitness fitnessFunction, Mutation mutationFunction, double mutationRate) {
-    super(encoding, fitnessFunction, mutationFunction, mutationRate);
+  public BitString(Encoding encoding, Fitness fitnessFunction, double mutationRate) {
+    super(encoding, fitnessFunction, mutationRate);
   }
 
   @Override
   public Individual copy() {
-    return new BitString(this.encoding, this.fitnessFunction, this.mutationFunction, this.mutationRate);
+    return new BitString(this.encoding, this.fitnessFunction, this.mutationRate);
   }
 }
