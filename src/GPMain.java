@@ -6,16 +6,15 @@ import gene.encoding.Encoding;
 import generator.Generator;
 import selection.Selector;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class GPMain {
-  List<Individual> population = new ArrayList<Individual>();
+  ArrayList<Individual> population = new ArrayList<Individual>();
   Generator generator;
   Crossover crossoverFunction;
   Selector selector;
   Fitness fitnessFunction;
+  int generation = 0;
 
   public GPMain(Generator generator, Crossover crossoverFunction, Selector selector,
       Fitness fitnessFunction) {
@@ -32,15 +31,35 @@ public class GPMain {
     }
   }
 
-  public void runOneGeneration() {
+  public void runOneGeneration(Encoding desired) {
+    generation++;
+    Collections.shuffle(population);
+    int pop = population.size();
+    for (int i = 0; i < pop - 1; i+= 2) {
+      doCrossover(population.get(i), population.get(i + 1));
+    }
+    population = selector.select(population, desired);
+    mutateAll();
+    display();
+  }
+
+  public void mutateAll() {
+    for (Individual individual : population) {
+      individual.mutate();
+    }
   }
 
   public void doCrossover(Individual parent1, Individual parent2) {
     Individual[] children = crossoverFunction.doCrossover(parent1, parent2);
-    Collections.addAll(population, children);
+    population.addAll(Arrays.asList(children));
   }
 
   public void display() {
+    System.out.println("Generation: " + generation);
+    Collections.sort(population);
+    for (int i = population.size() - 1; i >= population.size() - 10; i--) {
+      System.out.println(population.get(i).toString());
+    }
   }
 
   public void runOnData() {

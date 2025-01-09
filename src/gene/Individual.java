@@ -23,7 +23,7 @@ public abstract class Individual implements Comparable<Individual> {
     this.mutationRate = mutationRate;
   }
 
-  public double calculateFitness(String desired) {
+  public double calculateFitness(Encoding desired) {
     this.fitness = this.fitnessFunction.calculateFitness(this.encoding, desired);
     return this.fitness;
   }
@@ -44,5 +44,14 @@ public abstract class Individual implements Comparable<Individual> {
     double fitnessOther = o.fitness;
 
     return Double.compare(fitnessThis, fitnessOther);
+  }
+
+  public void setEncoding(Encoding encoding) {
+    this.encoding = encoding;
+  }
+
+  @Override
+  public String toString() {
+    return "Fitness: " + this.fitness + "\nEncoding: " + this.encoding.getData() + "\n";
   }
 }
