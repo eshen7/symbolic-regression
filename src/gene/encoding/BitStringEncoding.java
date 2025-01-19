@@ -17,7 +17,7 @@ public class BitStringEncoding implements Encoding {
 
   @Override
   public void mutate(double mutationRate) {
-    if (rand.nextDouble() < mutationRate) {
+    if (rand.nextDouble() > mutationRate) {
       return;
     }
     String bits = this.encoding;

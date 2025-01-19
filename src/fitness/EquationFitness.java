@@ -1,10 +1,22 @@
 package fitness;
 
 import gene.encoding.Encoding;
+import util.Node;
+import java.util.List;
 
-public class EquationFitness implements Fitness {
+public class EquationFitness implements Fitness<List<double[]>> {
   @Override
-  public double calculateFitness(Encoding encoding, Encoding desired) {
-    return 0;
+  public double calculateFitness(Encoding encoding, List<double[]> data) {
+    if(!(encoding instanceof Node)) {
+      throw new IllegalArgumentException();
+    }
+    double error = 0.0;
+    for (double[] point : data) {
+      double x = point[0];
+      double expected = point[1];
+      double predicted = ((Node) encoding).evaluate(x);
+      error -= Math.pow(expected - predicted, 2);  // Mean Squared Error
+    }
+    return error / data.size();
   }
 }

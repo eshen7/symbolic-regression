@@ -2,6 +2,6 @@ package crossover;
 
 import gene.Individual;
 
-public interface Crossover {
-  Individual[] doCrossover(Individual parent1, Individual parent2);
+public interface Crossover<T> {
+  Individual<T>[] doCrossover(Individual<T> parent1, Individual<T> parent2);
 }

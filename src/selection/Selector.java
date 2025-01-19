@@ -6,6 +6,6 @@ import gene.encoding.Encoding;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface Selector {
-  ArrayList<Individual> select(ArrayList<Individual> population, Encoding desired);
+public interface Selector<T> {
+  ArrayList<Individual<T>> select(ArrayList<Individual<T>> population, T desired);
 }

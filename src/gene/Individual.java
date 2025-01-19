@@ -3,13 +3,13 @@ package gene;
 import fitness.Fitness;
 import gene.encoding.Encoding;
 
-public abstract class Individual implements Comparable<Individual> {
+public abstract class Individual<T> implements Comparable<Individual<T>> {
   protected Encoding encoding;
-  protected Fitness fitnessFunction;
+  protected Fitness<T> fitnessFunction;
   protected double fitness;
   protected double mutationRate;
 
-  public Individual(Encoding encoding, Fitness fitnessFunction, double mutationRate) {
+  public Individual(Encoding encoding, Fitness<T> fitnessFunction, double mutationRate) {
     this.encoding = encoding;
     this.fitnessFunction = fitnessFunction;
     this.mutationRate = mutationRate;
@@ -23,7 +23,7 @@ public abstract class Individual implements Comparable<Individual> {
     this.mutationRate = mutationRate;
   }
 
-  public double calculateFitness(Encoding desired) {
+  public double calculateFitness(T desired) {
     this.fitness = this.fitnessFunction.calculateFitness(this.encoding, desired);
     return this.fitness;
   }
@@ -36,7 +36,7 @@ public abstract class Individual implements Comparable<Individual> {
     return this.encoding;
   }
 
-  public abstract Individual copy();
+  public abstract Individual<T> copy();
 
   @Override
   public int compareTo(Individual o) {

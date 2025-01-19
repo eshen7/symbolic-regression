@@ -1,4 +1,5 @@
 import crossover.Crossover;
+import factory.Factory;
 import fitness.Fitness;
 import gene.BitString;
 import gene.Individual;
@@ -6,32 +7,32 @@ import gene.encoding.Encoding;
 import generator.Generator;
 import selection.Selector;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
-public class GPMain {
-  ArrayList<Individual> population = new ArrayList<Individual>();
+public class GPMain<T> {
+  ArrayList<Individual<T>> population = new ArrayList<Individual<T>>();
   Generator generator;
-  Crossover crossoverFunction;
-  Selector selector;
-  Fitness fitnessFunction;
+  Crossover<T> crossoverFunction;
+  Selector<T> selector;
+  Factory<T> factory;
   int generation = 0;
 
-  public GPMain(Generator generator, Crossover crossoverFunction, Selector selector,
-      Fitness fitnessFunction) {
+  public GPMain(Generator generator, Crossover<T> crossoverFunction, Selector<T> selector, Factory<T> factory) {
     this.generator = generator;
     this.crossoverFunction = crossoverFunction;
     this.selector = selector;
-    this.fitnessFunction = fitnessFunction;
+    this.factory = factory;
   }
 
-  public void createPopulation(int populationSize) {
-    for (int i = 0; i < populationSize; i++) {
-      Encoding encoding = generator.generate(100);
-      population.add(new BitString(encoding, fitnessFunction, 0.1));
-    }
+  public void createPopulation(int populationSize, int geneLength, double mutationRate) {
+    factory.createPopulation(populationSize, geneLength, mutationRate);
+    this.population = factory.getPopulation();
   }
 
-  public void runOneGeneration(Encoding desired) {
+  public void runOneGeneration(T desired) {
+    display();
     generation++;
     Collections.shuffle(population);
     int pop = population.size();
@@ -40,28 +41,27 @@ public class GPMain {
     }
     population = selector.select(population, desired);
     mutateAll();
-    display();
   }
 
   public void mutateAll() {
-    for (Individual individual : population) {
+    for (Individual<T> individual : population) {
       individual.mutate();
     }
   }
 
-  public void doCrossover(Individual parent1, Individual parent2) {
-    Individual[] children = crossoverFunction.doCrossover(parent1, parent2);
+  public void doCrossover(Individual<T> parent1, Individual<T> parent2) {
+    Individual<T>[] children = crossoverFunction.doCrossover(parent1, parent2);
     population.addAll(Arrays.asList(children));
   }
 
   public void display() {
     System.out.println("Generation: " + generation);
     Collections.sort(population);
-    for (int i = population.size() - 1; i >= population.size() - 10; i--) {
+    for (int i = population.size() - 1; i >= population.size() - Math.min(10, population.size()); i--) {
       System.out.println(population.get(i).toString());
     }
   }
 
-  public void runOnData() {
+  public void runOnData(T data) {
   }
 }

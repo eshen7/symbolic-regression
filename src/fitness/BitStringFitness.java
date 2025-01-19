@@ -2,7 +2,8 @@ package fitness;
 
 import gene.encoding.Encoding;
 
-public class BitStringFitness implements Fitness {
+public class BitStringFitness implements Fitness<Encoding> {
+
   @Override
   public double calculateFitness(Encoding encoding, Encoding desired) {
     String data = encoding.getData();

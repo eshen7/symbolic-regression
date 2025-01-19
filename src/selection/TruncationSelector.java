@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class TruncationSelector implements Selector {
+public class TruncationSelector<T> implements Selector<T> {
   @Override
-  public ArrayList<Individual> select(ArrayList<Individual> population, Encoding desired) {
-    for (Individual individual : population) {
+  public ArrayList<Individual<T>> select(ArrayList<Individual<T>> population, T desired) {
+    for (Individual<T> individual : population) {
       individual.calculateFitness(desired);
     }
     Collections.sort(population);
