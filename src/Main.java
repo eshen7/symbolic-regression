@@ -26,12 +26,12 @@ public class Main {
     Factory<List<double[]>> factory = new EquationFactory();
     GPMain<List<double[]>> main = new GPMain<>(generator, crossover, selector, factory);
     List<double[]> desired = new ArrayList<>();
-    desired.add(new double[]{1, 4});
-    desired.add(new double[]{2, 16});
-    desired.add(new double[]{3, 36});
+    desired.add(new double[]{1, 1});
+    desired.add(new double[]{2, 8});
+    desired.add(new double[]{3, 27});
     desired.add(new double[]{4, 64});
-    desired.add(new double[]{5, 100});
-    main.createPopulation(500, 4, 0.7);
+    desired.add(new double[]{5, 125});
+    main.createPopulation(500, 4, 0.3);
     for (int i = 0; i < 5000; i++) {
       main.runOneGeneration(desired);
     }

@@ -19,7 +19,7 @@ public class EquationFitness implements Fitness<List<double[]>> {
       double predicted = ((Node) encoding).evaluate(x);
       error -= Math.pow(expected - predicted, 2);  // Mean Squared Error
     }
-    return error / data.size() - getNodeCount((Node) encoding);
+    return error / data.size() + 1.0 / getNodeCount((Node) encoding);
   }
 
   public static int getNodeCount(Node root) {
