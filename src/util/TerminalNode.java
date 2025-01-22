@@ -6,10 +6,10 @@ import java.util.Random;
 
 public class TerminalNode extends Node {
   private Random rand = new Random();
-  private double value;
-  private boolean isVariable;
+  private int value;
+  private final boolean isVariable;
 
-  public TerminalNode(double value) {
+  public TerminalNode(int value) {
     this.value = value;
     this.isVariable = false;
   }
@@ -36,7 +36,7 @@ public class TerminalNode extends Node {
   @Override
   public void mutate(double mutationRate) {
     if (!isVariable) {
-      double factor = rand.nextBoolean() ? rand.nextDouble() * 10 : 10 / rand.nextDouble();
+      int factor = rand.nextInt(10) - 10;
       value *= factor;
     }
   }

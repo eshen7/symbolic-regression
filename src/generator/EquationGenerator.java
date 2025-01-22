@@ -31,7 +31,7 @@ public class EquationGenerator implements Generator {
     if (rand.nextBoolean()) {
       return new TerminalNode(true);
     } else {
-      return new TerminalNode(rand.nextDouble() * 10);
+      return new TerminalNode(rand.nextInt(10));
     }
   }
 

@@ -2,14 +2,18 @@ import crossover.Crossover;
 import factory.Factory;
 import fitness.Fitness;
 import gene.BitString;
+import gene.Equation;
 import gene.Individual;
 import gene.encoding.Encoding;
 import generator.Generator;
 import selection.Selector;
+import util.Node;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.*;
+
+import static fitness.EquationFitness.getNodeCount;
 
 public class GPMain<T> {
   ArrayList<Individual<T>> population = new ArrayList<Individual<T>>();

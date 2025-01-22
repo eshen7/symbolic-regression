@@ -78,7 +78,7 @@ public class OperatorNode extends Node {
       case PLUS -> leftVal + rightVal;
       case MINUS -> leftVal - rightVal;
       case MULTIPLY -> leftVal * rightVal;
-      case DIVIDE -> (rightVal != 0) ? leftVal / rightVal : 1;
+      case DIVIDE -> (rightVal != 0) ? leftVal / rightVal : Integer.MAX_VALUE;
     };
   }
 
@@ -89,7 +89,21 @@ public class OperatorNode extends Node {
 
   @Override
   public String getData() {
-    return "(" + left.getData() + ") " + operator + " (" + right.getData() + ")";
+    String leftString;
+    String rightString;
+    if (left instanceof TerminalNode) {
+      leftString = left.getData();
+    }
+    else {
+      leftString = "(" + left.getData() + ")";
+    }
+    if (right instanceof TerminalNode) {
+      rightString = right.getData();
+    }
+    else {
+      rightString = "(" + right.getData() + ")";
+    }
+    return leftString + " " + operator + " " + rightString;
   }
 
   @Override
@@ -98,7 +112,7 @@ public class OperatorNode extends Node {
       return;
     }
     if (rand.nextBoolean()) {
-       OperatorNode newNode = (OperatorNode) EquationGenerator.generateRandomTree(5, true);
+       OperatorNode newNode = (OperatorNode) EquationGenerator.generateRandomTree(4, true);
        this.setLeft(newNode.getLeft());
        this.setRight(newNode.getRight());
        this.operator = newNode.getOperator();
